@@ -26,6 +26,6 @@ def test_save_launch_calls_put_item(mock_dynamodb):
 
     # Assert
     mock_dynamodb.put_item.assert_called_once_with(
-        TableName="SpaceXLaunches",
+        TableName="SpaceXLaunchesDB",
         Item=sample_item
     )
