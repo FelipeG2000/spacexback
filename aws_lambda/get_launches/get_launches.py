@@ -1,7 +1,7 @@
 import json
 from dynamo_reader import get_latest_launches
 
-def lambda_handler(event, context):
+def handle_get_launches(event, context):
     try:
         launches = get_latest_launches(limit=10)
         return {

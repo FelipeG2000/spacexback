@@ -1,6 +1,6 @@
 import boto3
 
-TABLE_NAME = "SpaceXLaunches"
+TABLE_NAME = "SpaceXLaunchesDB"
 
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(TABLE_NAME)
