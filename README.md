@@ -6,7 +6,7 @@ This project is a full-stack solution that monitors SpaceX launches using AWS La
 SpacexBackend/               # Backend (Lambda functions + API Gateway + DynamoDB)
 ├── aws_lambda/
 │   ├── fetch_launches/      # Lambda to ingest SpaceX launch data
-│   └── get_launches/        # Lambda to expose launch data via API Gateway
+│   └── fetch_launches/        # Lambda to expose launch data via API Gateway
 ├── tests/                   # Unit and integration tests
 ├── requirements.txt
 ├── .gitignore

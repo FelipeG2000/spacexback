@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SpaceX Get Launches Lambda
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: python3.10
+    MemorySize: 128
+    Architectures: [x86_64]
+
+Resources:
+  GetLaunchesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: get-launches-lambda
+      Handler: lambda_function.lambda_handler
+      CodeUri: aws_lambda/get_launches/
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: SpaceXLaunches
+      Events:
+        ApiGetLaunches:
+          Type: Api
+          Properties:
+            Path: /launches
+            Method: GET
