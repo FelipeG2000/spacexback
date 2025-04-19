@@ -72,3 +72,9 @@ Resources:
           Properties:
             Path: /launches
             Method: GET
+Outputs:
+  SpaceXLaunchesApiEndpoint:
+    Description: "Base URL for the SpaceX Launches HTTP API"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+    Export:
+      Name: SpaceXLaunchesApiEndpoint

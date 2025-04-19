@@ -5,7 +5,7 @@ TABLE_NAME = "SpaceXLaunchesDB"
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(TABLE_NAME)
 
-def get_latest_launches(limit=10):
+def get_latest_launches(limit=20):
     # Warning: scan is inefficient at scale
     response = table.scan(Limit=100)
     items = response.get("Items", [])
