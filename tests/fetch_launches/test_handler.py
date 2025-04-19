@@ -4,9 +4,10 @@ from aws_lambda.fetch_launches.fetch_launches import fetch_launches_handler, get
 
 
 @patch("aws_lambda.fetch_launches.fetch_launches.save_launch")
+@patch("aws_lambda.fetch_launches.fetch_launches.get_launchpad_name")
 @patch("aws_lambda.fetch_launches.fetch_launches.get_rocket_name")
 @patch("aws_lambda.fetch_launches.fetch_launches.fetch_launches")
-def test_lambda_handler_success(mock_fetch, mock_get_rocket_name, mock_save_launch):
+def test_lambda_handler_success(mock_fetch, mock_get_rocket_name, mock_get_launchpad_name, mock_save_launch):
     # Mock SpaceX data
     mock_fetch.return_value = [{
         "id": "abc123",
@@ -23,6 +24,7 @@ def test_lambda_handler_success(mock_fetch, mock_get_rocket_name, mock_save_laun
         }
     }]
     mock_get_rocket_name.return_value = "Falcon 9"
+    mock_get_launchpad_name.return_value = "Launch Complex 39A"
 
     response = fetch_launches_handler({}, {})
 
@@ -43,9 +45,10 @@ def test_get_status_failed():
     assert get_status(launch) == "failed"
 
 @patch("aws_lambda.fetch_launches.fetch_launches.save_launch")
+@patch("aws_lambda.fetch_launches.fetch_launches.get_launchpad_name")
 @patch("aws_lambda.fetch_launches.fetch_launches.get_rocket_name")
 @patch("aws_lambda.fetch_launches.fetch_launches.fetch_launches")
-def test_lambda_handler_ignores_launch_without_id(mock_fetch, mock_get_rocket_name, mock_save_launch):
+def test_lambda_handler_ignores_launch_without_id(mock_fetch, mock_get_rocket_name, mock_get_launchpad_name, mock_save_launch):
     mock_fetch.return_value = [
         {
             "id": "abc123",
@@ -75,8 +78,8 @@ def test_lambda_handler_ignores_launch_without_id(mock_fetch, mock_get_rocket_na
             "links": {"webcast": None, "patch": {"small": None}}
         }
     ]
-
     mock_get_rocket_name.return_value = "Falcon 9"
+    mock_get_launchpad_name.return_value = "Launch Complex 40"
 
     response = fetch_launches_handler({}, {})
 

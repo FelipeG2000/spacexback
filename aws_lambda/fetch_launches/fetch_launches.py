@@ -1,4 +1,4 @@
-from spacex import fetch_launches, get_rocket_name
+from spacex import fetch_launches, get_rocket_name, get_launchpad_name
 from dynamo_writer import save_launch
 
 def fetch_launches_handler(event, context):
@@ -11,13 +11,14 @@ def fetch_launches_handler(event, context):
             continue
 
         rocket_name = get_rocket_name(launch.get("rocket", ""))
+        launchpad_name = get_launchpad_name(launch.get("launchpad", ""))
         item = {
             "launch_id": {"S": launch_id},
             "mission_name": {"S": launch.get("name", "Unknown")},
             "rocket_name": {"S": rocket_name},
             "launch_date": {"S": launch.get("date_utc", "Unknown")},
             "status": {"S": get_status(launch)},
-            "launchpad_name": {"S": launch.get("launchpad", "Unknown")},
+            "launchpad_name": {"S": launchpad_name},
             "upcoming": {"BOOL": launch.get("upcoming", False)},
             "details": {"S": launch.get("details") or "No details"},
             "webcast": {"S": launch.get("links", {}).get("webcast") or "N/A"},
