@@ -1,0 +1,51 @@
+openapi: 3.0.1
+info:
+  title: SpaceX Launches API
+  version: 1.0.0
+  description: API for SpaceX launch data
+
+servers:
+  - url: https://hs0ha2y7u8.execute-api.us-east-1.amazonaws.com/Prod
+    description: Deployed SpaceX API
+
+paths:
+  /launches:
+    get:
+      summary: Get all launches
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Launch'
+  /fetch-launches:
+    post:
+      summary: Fetch launches from SpaceX API
+      responses:
+        '200':
+          description: Update initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Launch:
+      type: object
+      properties:
+        launch_id:
+          type: string
+        mission_name:
+          type: string
+        rocket_name:
+          type: string
+        launch_date:
+          type: string
+          format: date-time

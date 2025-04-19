@@ -19,10 +19,19 @@ SpacexBackend/               # Backend (Lambda functions + API Gateway + DynamoD
 ├── requirements.txt            # Shared dependencies (if needed)
 └── README.md
 ```
+## 📘 API Documentation (Swagger / OpenAPI) 
+This project includes an OpenAPI specification for the SpaceX Launches API.
+The Swagger documentation is available in the repository at:
+```bash
+ 📄 api-docs/swagger.yaml
+```
+You can view or test the API interactively by copying the contents of the file into the Swagger Editor or using the link below:
 
-# 🛠️ How to Deploy Infrastructure from Scratch
+👉 [Open Swagger Editor](https://editor.swagger.io)
 
-# 📌 Requirements
+## 🛠️ How to Deploy Infrastructure from Scratch
+
+### 📌 Requirements
 
 * AWS CLI configured (with credentials)
 * AWS SAM CLI installed

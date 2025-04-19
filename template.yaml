@@ -44,7 +44,7 @@ Resources:
         ScheduleRule:
           Type: Schedule
           Properties:
-            Schedule: "rate(6 hours)"  # Ejecución automática cada 6 horas
+            Schedule: "rate(6 hours)"
             Enabled: true
         ApiGetLaunches:
           Type: HttpApi
