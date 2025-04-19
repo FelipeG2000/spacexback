@@ -3,7 +3,12 @@ from dynamo_reader import get_latest_launches
 
 def handle_get_launches(event, context):
     try:
-        launches = get_latest_launches(limit=10)
+        query_params = event.get("queryStringParameters") or {}
+        limit_param = query_params.get("limit")
+
+        limit = int(limit_param) if limit_param is not None else None
+
+        launches = get_latest_launches(limit=limit)
         return {
             "statusCode": 200,
             "headers": {
