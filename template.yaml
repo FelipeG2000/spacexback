@@ -65,6 +65,7 @@ Resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:Query
+                - dynamodb:Scan
               Resource: !GetAtt LaunchesTable.Arn
       Events:
         ApiGetLaunches:
