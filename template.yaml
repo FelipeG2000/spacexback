@@ -13,6 +13,37 @@ Globals:
         TABLE_NAME: !Ref LaunchesTable
 
 Resources:
+  SwaggerUIBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub spacex-swagger-ui-${AWS::AccountId}
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter
+      Tags:
+        - Key: Name
+          Value: spacex-swagger-ui
+  SwaggerUIBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SwaggerUIBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadForSwaggerUI
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${SwaggerUIBucket}/*"
   LaunchesTable:
     Type: AWS::DynamoDB::Table
     Properties:

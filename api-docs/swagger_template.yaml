@@ -5,7 +5,7 @@ info:
   description: API for SpaceX launch data
 
 servers:
-  - url: https://hs0ha2y7u8.execute-api.us-east-1.amazonaws.com/Prod
+  - url: "${API_URL}"
     description: Deployed SpaceX API
 
 paths:

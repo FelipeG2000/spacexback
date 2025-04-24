@@ -1,0 +1,36 @@
+name: Upload Swagger UI to S3
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api-docs/swagger_template.yaml'
+      - 'api-docs/upload_swagger.sh'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  upload-swagger:
+    name: Deploy Swagger to S3
+    runs-on: ubuntu-latest
+    environment: Prod Space Backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.REGION }}
+
+      - name: Make script executable
+        run: chmod +x api-docs/upload_swagger.sh
+
+      - name: Run upload_swagger.sh
+        run: ./api-docs/upload_swagger.sh

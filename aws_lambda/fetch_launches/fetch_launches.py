@@ -1,5 +1,6 @@
 from spacex import fetch_launches, get_rocket_name, get_launchpad_name
 from dynamo_writer import save_launch
+import json
 
 def fetch_launches_handler(event, context):
     launches = fetch_launches()
@@ -29,9 +30,18 @@ def fetch_launches_handler(event, context):
         count += 1
 
     return {
-        "statusCode": 200,
-        "body": f"{count} launches processed successfully."
+    "statusCode": 200,
+    "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "*"
+        },
+    "body": json.dumps({
+        "message": f"{count} launches processed successfully."
+        })
     }
+
 
 def get_status(launch):
     if launch.get("upcoming"):
